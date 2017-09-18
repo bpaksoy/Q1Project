@@ -43,12 +43,32 @@ searchForm.addEventListener("submit", function(event){
           var fee =  "Application fee: " + data.result.admission.applicationFee;
           var fulltimeUndergrad = "Fulltime Undergrad Student Population: "+ data.result.enrollment.fulltimeUndergrad;
           var fulltimeGrad = "Fulltime Grad Student Population: " + data.result.enrollment.fulltimeGrad;
-          var location = "Main campus: " + data.result.location.city;
-          var tuition = "Annual Tuition: $" + data.result.school.instateTuition;
+          var location = "Main campus: " + data.result.location.city + ", " + data.result.location.state;
+          var tuitionRaw = data.result.school.instateTuition;
+          function monetize(num){
+            num = num.toString();
+            var newStr = "";
+            var money = ""
+            for(var i = num.length -1; i >= 0; i--){
+             console.log(i, num[i], i % 2 === 0);
+             if(i !== num.length -1 && i !== 0 && i % 2 === 0){
+               newStr+= num[i] + ","
+             } else{
+               newStr+= num[i];
+             }
+            }
+            for(var j = newStr.length -1; j >=0; j--){
+              money+= newStr[j];
+            }
+            return "$" + money;
+          }
+
+          var tuition = "Annual Tuition: " + monetize(tuitionRaw);
+
           var ratio = "Student to Faculty Ratio: " + data.result.school.studentFacultyRatio
           var actScore = "ACT Average: " + data.result.test.act25;
           var satScore = "SAT Average: " + data.result.test.sat25;
-          statArray.push(acceptance, fee, fulltimeGrad, location, tuition, ratio, actScore, satScore);
+          statArray.push(acceptance, fee, fulltimeUndergrad, fulltimeGrad, location, tuition, ratio, actScore, satScore);
           //console.log("acceptance", acceptance, "fee", fee, "tuition", tuition, statArray);
           for(var k = 0; k < statArray.length; k++){
             var li = document.createElement("li");
@@ -62,7 +82,7 @@ searchForm.addEventListener("submit", function(event){
           schoolImg.setAttribute("src", photoImgUrl);
 
           });
-          schoolStats.innerHTML = "";
+
       }
       if(collegeId === undefined){
         searchTerm = searchTerm.toUpperCase();
@@ -86,13 +106,32 @@ searchForm.addEventListener("submit", function(event){
                  var fee2 =  "Application fee: " + data.result.admission.applicationFee;
                  var fulltimeUndergrad2 = "Fulltime Undergrad Student Population: "+ data.result.enrollment.fulltimeUndergrad;
                  var fulltimeGrad2 = "Fulltime Grad Student Population: " + data.result.enrollment.fulltimeGrad;
-                 var location2 = "Main campus: " + data.result.location.city;
-                 var tuition2 = "Annual Tuition: $" + data.result.school.instateTuition;
+                 var location2 = "Main campus: " + data.result.location.city + ", " + data.result.location.state;
+                 var tuitionRaw2 = data.result.school.instateTuition;
+                 function monetize2(num){
+                   num = num.toString();
+                   var newStr = "";
+                   var money = ""
+                   for(var i = num.length -1; i >= 0; i--){
+                    console.log(i, num[i], i % 2 === 0);
+                    if(i !== num.length -1 && i !== 0 && i % 2 === 0){
+                      newStr+= num[i] + ","
+                    } else{
+                      newStr+= num[i];
+                    }
+                   }
+                   for(var j = newStr.length -1; j >=0; j--){
+                     money+= newStr[j];
+                   }
+                   return "$" + money;
+                 }
+
+                 var tuition2 = "Annual Tuition: " + monetize2(tuitionRaw2);
                  var ratio2 = "Student to Faculty Ratio: " + data.result.school.studentFacultyRatio
                  var actScore2 = "ACT Average: " + data.result.test.act25;
                  var satScore2 = "SAT Average: " + data.result.test.sat25;
-                 statArray2.push(acceptance2, fee2, fulltimeGrad2, location2, tuition2, ratio2, actScore2, satScore2);
-                 //console.log("acceptance", acceptance, "fee", fee, "tuition", tuition, statArray);
+                 statArray2.push(acceptance2, fee2, fulltimeUndergrad2, fulltimeGrad2, location2, tuition2, ratio2, actScore2, satScore2);
+
                  for(var l = 0; l < statArray2.length; l++){
                    var li2 = document.createElement("li");
                    li2.textContent = statArray2[l];
@@ -110,7 +149,6 @@ searchForm.addEventListener("submit", function(event){
            });
        }
 
-    //return collegeId;
   });
 
 });
