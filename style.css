@@ -2,23 +2,49 @@
 body {
   height: 100%;
   margin-left: 5px;
+  margin-right: 5px;
   padding: 0;
   background-color: #F0F0F2;
 }
 
 #schoolImg {
-   max-width: 50%;
+   max-width: 80%;
     height: auto;
-    width: auto\9;
+    width: auto/9;
+    border-radius: 3px;
     /*border: solid black 2px;*/
-
 }
 
 #map {
-  width: 50%;
-  height: 400px;
+  width: 90%;
+  height: 300px;
+  border-radius: 3px;
 }
 
 nav {
   background-color: #41A7CC;
+}
+
+.page-footer {
+  background-color: #41A7CC;
+}
+.footer-copyright {
+  height: 1px;
+}
+
+main {
+  height: 30em;
+}
+
+
+#grid1{
+  border: solid #41A7CC 2px;
+}
+
+#grid2{
+  border: solid #41A7CC 2px;
+}
+
+#grid3{
+  border: solid #41A7CC 2px;
 }
