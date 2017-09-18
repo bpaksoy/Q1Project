@@ -13,6 +13,32 @@ searchForm.addEventListener("submit", function(event){
     }
   searchTerm = searchTerm.join(" ");
 
+  function monetize(num){
+    var string = num.toString();
+    var newStr = "";
+    var money = ""
+    for(var i = string.length -1; i >= 0; i--){
+     //console.log(i, string[i], i % 2 === 0);
+     if(string.length % 2 === 1){
+       if(i !== string.length -1 && i !== 0 && i % 2 === 0){
+         newStr+= string[i] + ","
+       } else{
+         newStr+= string[i];
+       }
+     } else{
+       if(i !== string.length -1 && i !== 0 && i % 2 !== 0){
+         newStr+= string[i] + ","
+       } else{
+         newStr+= string[i];
+       }
+     }
+    }
+    for(var j = newStr.length -1; j >=0; j--){
+      money+= newStr[j];
+    }
+    return money;
+  }
+
   console.log(searchTerm);
   var schoolStats = document.querySelector("#blurb");
 
@@ -39,31 +65,17 @@ searchForm.addEventListener("submit", function(event){
           var list = document.createElement("ul");
 
           var statArray = [];
-          var acceptance = "Acceptance rate: " + data.result.admission.acceptanceRate;
-          var fee =  "Application fee: " + data.result.admission.applicationFee;
-          var fulltimeUndergrad = "Fulltime Undergrad Student Population: "+ data.result.enrollment.fulltimeUndergrad;
-          var fulltimeGrad = "Fulltime Grad Student Population: " + data.result.enrollment.fulltimeGrad;
+          var acceptance = "Acceptance rate: " + data.result.admission.acceptanceRate + "%";
+          var fee =  "Application fee: $" + data.result.admission.applicationFee;
+          var fulltimeUndergradRaw = data.result.enrollment.fulltimeUndergrad;
+          var fulltimeUndergrad = "Fulltime Undergrad Student Population: " + monetize(fulltimeUndergradRaw);
+          var fulltimeGradRaw =  data.result.enrollment.fulltimeGrad;
+          var fulltimeGrad = "Fulltime Grad Student Population: " + monetize(fulltimeGradRaw);
           var location = "Main campus: " + data.result.location.city + ", " + data.result.location.state;
           var tuitionRaw = data.result.school.instateTuition;
-          function monetize(num){
-            num = num.toString();
-            var newStr = "";
-            var money = ""
-            for(var i = num.length -1; i >= 0; i--){
-             console.log(i, num[i], i % 2 === 0);
-             if(i !== num.length -1 && i !== 0 && i % 2 === 0){
-               newStr+= num[i] + ","
-             } else{
-               newStr+= num[i];
-             }
-            }
-            for(var j = newStr.length -1; j >=0; j--){
-              money+= newStr[j];
-            }
-            return "$" + money;
-          }
 
-          var tuition = "Annual Tuition: " + monetize(tuitionRaw);
+
+          var tuition = "Annual Tuition: $" + monetize(tuitionRaw);
 
           var ratio = "Student to Faculty Ratio: " + data.result.school.studentFacultyRatio
           var actScore = "ACT Average: " + data.result.test.act25;
@@ -102,31 +114,15 @@ searchForm.addEventListener("submit", function(event){
                  var list2 = document.createElement("ul");
 
                  var statArray2 = [];
-                 var acceptance2 = "Acceptance rate: " + data.result.admission.acceptanceRate;
-                 var fee2 =  "Application fee: " + data.result.admission.applicationFee;
-                 var fulltimeUndergrad2 = "Fulltime Undergrad Student Population: "+ data.result.enrollment.fulltimeUndergrad;
-                 var fulltimeGrad2 = "Fulltime Grad Student Population: " + data.result.enrollment.fulltimeGrad;
+                 var acceptance2 = "Acceptance rate: " + data.result.admission.acceptanceRate + "%";
+                 var fee2 =  "Application fee: $" + data.result.admission.applicationFee;
+                 var fulltimeUndergrad2Raw = data.result.enrollment.fulltimeUndergrad;
+                 var fulltimeUndergrad2 = "Fulltime Undergrad Student Population: " + monetize(fulltimeUndergrad2Raw);
+                 var fulltimeGrad2Raw  = data.result.enrollment.fulltimeGrad
+                 var fulltimeGrad2 = "Fulltime Grad Student Population: " + monetize(fulltimeGrad2Raw);
                  var location2 = "Main campus: " + data.result.location.city + ", " + data.result.location.state;
                  var tuitionRaw2 = data.result.school.instateTuition;
-                 function monetize2(num){
-                   num = num.toString();
-                   var newStr = "";
-                   var money = ""
-                   for(var i = num.length -1; i >= 0; i--){
-                    console.log(i, num[i], i % 2 === 0);
-                    if(i !== num.length -1 && i !== 0 && i % 2 === 0){
-                      newStr+= num[i] + ","
-                    } else{
-                      newStr+= num[i];
-                    }
-                   }
-                   for(var j = newStr.length -1; j >=0; j--){
-                     money+= newStr[j];
-                   }
-                   return "$" + money;
-                 }
-
-                 var tuition2 = "Annual Tuition: " + monetize2(tuitionRaw2);
+                 var tuition2 = "Annual Tuition: $" + monetize(tuitionRaw2);
                  var ratio2 = "Student to Faculty Ratio: " + data.result.school.studentFacultyRatio
                  var actScore2 = "ACT Average: " + data.result.test.act25;
                  var satScore2 = "SAT Average: " + data.result.test.sat25;

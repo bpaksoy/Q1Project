@@ -1,7 +1,7 @@
 
 body {
   height: 100%;
-  margin: 0 auto;
+  margin-left: 5px;
   padding: 0;
   background-color: #F0F0F2;
 }
@@ -10,12 +10,13 @@ body {
    max-width: 50%;
     height: auto;
     width: auto\9;
+    /*border: solid black 2px;*/
 
 }
 
 #map {
   width: 50%;
-   height: 400px;
+  height: 400px;
 }
 
 nav {
