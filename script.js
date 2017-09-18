@@ -14,7 +14,11 @@ searchForm.addEventListener("submit", function(event){
   searchTerm = searchTerm.join(" ");
 
   console.log(searchTerm);
+  var schoolStats = document.querySelector("#blurb");
 
+    if(searchTerm !== ""){
+      schoolStats.innerHTML = "";
+    }
   $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
     var collegeArr = data.result;
       for(var i = 0; i < collegeArr.length; i++){
@@ -26,13 +30,12 @@ searchForm.addEventListener("submit", function(event){
        }
      console.log(collegeName + ":" + collegeId)
       if(collegeName && collegeId){
-
         $.get("https://www.nearbycolleges.info/api/everything/" + collegeId, function(data){
-
+          //statArray.length = 0;
 
           var searchResult = document.querySelector("h4");
           searchResult.textContent = collegeName;
-          var schoolStats = document.querySelector("#schoolName");
+
           var list = document.createElement("ul");
 
           var statArray = [];
@@ -58,7 +61,8 @@ searchForm.addEventListener("submit", function(event){
           var schoolImg = document.querySelector("#schoolImg");
           schoolImg.setAttribute("src", photoImgUrl);
 
-        });
+          });
+          schoolStats.innerHTML = "";
       }
       if(collegeId === undefined){
         searchTerm = searchTerm.toUpperCase();
@@ -74,7 +78,7 @@ searchForm.addEventListener("submit", function(event){
 
                  var searchResult2 = document.querySelector("h4");
                  searchResult2.textContent = collegeName2;
-                 var schoolStats2 = document.querySelector("#schoolName");
+                 var schoolStats2 = document.querySelector("#blurb");
                  var list2 = document.createElement("ul");
 
                  var statArray2 = [];
