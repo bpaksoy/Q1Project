@@ -43,6 +43,17 @@ searchForm.addEventListener("submit", function(event){
   }
 
 
+  if(searchTerm === "NYU" || searchTerm === "nyu"){
+    searchTerm = "New York University";
+    searchTerm2 = "new%20york%20university";
+  }
+
+  if(searchTerm === "upenn" || searchTerm === "UPenn" || searchTerm === "UPENN" ){
+    searchTerm = "University of Pennsylvania";
+    searchTerm2= "university%20of%20pennsylvania";
+  }
+
+
   $.get("https://api.data.gov/ed/collegescorecard/v1/schools/?school.name="+searchTerm2+"&api_key=Xxf2NKtwfcXUd8K2hqawnlur6c0YY93xsNFwq0Dy", function(data){
    //schoolName = data.results[0].school.name;
    var object = data.results[0]["2014"].academics.program.degree
@@ -61,6 +72,8 @@ searchForm.addEventListener("submit", function(event){
   }
 
   var programs = document.createElement("h5");
+  programs.textContent = "Programs Offered: ";
+  list.appendChild(programs);
 
     for(var key in object){
       if(object[key] == 1){
@@ -68,15 +81,7 @@ searchForm.addEventListener("submit", function(event){
         key = key.split("_").join(" ");
         console.log("key:", key);
         var li = document.createElement("li");
-
-        if(Object.keys(object)[0] === key){
-          programs.textContent = "Programs Offered: ";
-          list.appendChild(programs);
-          li.textContent += "* " + nameCorrector(key);
-        }else{
-          li.textContent += "* " + nameCorrector(key);
-        }
-
+        li.textContent = "* " + nameCorrector(key);
         list.appendChild(li);
     }
   }
@@ -93,9 +98,7 @@ searchForm.addEventListener("submit", function(event){
       schoolStats.innerHTML = "";
     }
 
-  if(searchTerm === "NYU" || searchTerm === "nyu"){
-    searchTerm = "New York University";
-  }
+
 
   $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
     console.log("alias data script: ", data)
