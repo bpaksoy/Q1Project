@@ -5,6 +5,9 @@ searchForm.addEventListener("submit", function(event){
 
   var searchTerm = document.querySelector("input").value;
   searchTerm = searchTerm.split(" ");
+  var searchTerm2 = document.querySelector("input").value;
+  searchTerm2 = searchTerm2.toLowerCase();
+  searchTerm2= searchTerm2.split(" ").join("%20");
 
     for(var i =0; i < searchTerm.length; i++){
       if(searchTerm[i][0] && searchTerm[i] !== "of" && searchTerm[i] !== "and"){
@@ -12,7 +15,7 @@ searchForm.addEventListener("submit", function(event){
       }
     }
   searchTerm = searchTerm.join(" ");
-
+  console.log(searchTerm);
   function monetize(num){
     var string = num.toString();
     var newStr = "";
@@ -39,26 +42,76 @@ searchForm.addEventListener("submit", function(event){
     return money;
   }
 
-  console.log(searchTerm);
-  var schoolStats = document.querySelector("#blurb");
 
+  $.get("https://api.data.gov/ed/collegescorecard/v1/schools/?school.name="+searchTerm2+"&api_key=Xxf2NKtwfcXUd8K2hqawnlur6c0YY93xsNFwq0Dy", function(data){
+   //schoolName = data.results[0].school.name;
+   var object = data.results[0]["2014"].academics.program.degree
+   var list = document.querySelector("#degrees");
+   if(searchTerm2 !== ""){
+     list.innerHTML = "";
+   }
+
+   function nameCorrector(str){
+     str = str.split(" ");
+     var newStr = [];
+     for(var i = 0; i < str.length; i++){
+       newStr.push(str[i].substring(0,1).toUpperCase() + str[i].substring(1));
+     }
+     return newStr.join(" ");
+  }
+
+  var programs = document.createElement("h5");
+
+    for(var key in object){
+      if(object[key] == 1){
+
+        key = key.split("_").join(" ");
+        console.log("key:", key);
+        var li = document.createElement("li");
+
+        if(Object.keys(object)[0] === key){
+          programs.textContent = "Programs Offered: ";
+          list.appendChild(programs);
+          li.textContent += "* " + nameCorrector(key);
+        }else{
+          li.textContent += "* " + nameCorrector(key);
+        }
+
+        list.appendChild(li);
+    }
+  }
+
+  //degrees.textContent = "Programs offered are: " + newArr[0] + ", " + newArr[1] + ", " + newArr[2] + ", " + newArr[3] + ", " + newArr[4];
+ });
+
+
+  //console.log(searchTerm);
+  var schoolStats = document.querySelector("#blurb");
+  var collegeName;
+  var collegeId;
     if(searchTerm !== ""){
       schoolStats.innerHTML = "";
     }
+
+  if(searchTerm === "NYU" || searchTerm === "nyu"){
+    searchTerm = "New York University";
+  }
+
   $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
+    console.log("alias data script: ", data)
+
     var collegeArr = data.result;
       for(var i = 0; i < collegeArr.length; i++){
         if(collegeArr[i].name.startsWith(searchTerm)){
-          var collegeName = (collegeArr[i].name);
-          var collegeId =  collegeArr[i].unitid;
+          collegeName = collegeArr[i].name;
+          collegeId =  collegeArr[i].unitid;
          //console.log(collegeId);
        }
        }
-     console.log(collegeName + ":" + collegeId)
+     console.log("How about this one?" + collegeName + ":" + collegeId);
       if(collegeName && collegeId){
         $.get("https://www.nearbycolleges.info/api/everything/" + collegeId, function(data){
-          //statArray.length = 0;
-
+         console.log("everything data script;", data)
           var searchResult = document.querySelector("h4");
           searchResult.textContent = collegeName;
 
@@ -103,9 +156,10 @@ searchForm.addEventListener("submit", function(event){
              //console.log("here is alias:", data.result[0].alias, data.result[0].unitid);
              var collegeName2 = data.result[0].name;
              var collegeId2 = data.result[0].unitid;
-             console.log(collegeName2 + ":" + collegeId2);
+             console.log("alias data: script", collegeName2 + ":" + collegeId2);
 
              if(collegeName2 && collegeId2){
+              //  $.get("http://cors-proxy.htmldriven.com/?url=https://www.nearbycolleges.info/api/everything/" + collegeId2, function(data){
                $.get("https://www.nearbycolleges.info/api/everything/" + collegeId2, function(data){
 
                  var searchResult2 = document.querySelector("h4");

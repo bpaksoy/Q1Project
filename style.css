@@ -13,10 +13,16 @@ body {
 
 #schoolSearch {
   background-color: #CECECE;
-  border-radius: 3px;
+  border-radius: 10px;
+  width: 200px;
+  height:35px;
   color: #454754;
   padding-left: 5px;
 }
+
+/*input::placeholder{
+  color:  #454754;
+}*/
 
 #schoolImg {
    max-width: 80%;
@@ -69,5 +75,17 @@ main {
 }
 
 #grid3{
+  border: solid #41A7CC 2px;
+}
+
+#grid4{
+  border: solid #41A7CC 2px;
+}
+
+#grid5{
+  border: solid #41A7CC 2px;
+}
+
+#grid6{
   border: solid #41A7CC 2px;
 }

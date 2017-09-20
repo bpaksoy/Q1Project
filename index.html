@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta name="viewport" content="initial-scale=1.0">
   <meta charset="utf-8">
@@ -25,8 +24,8 @@
   <div class="col s6">
   <form id="mainSearch">
     <label for="schoolSearch" style="font-size:20px">School Search</label>
-    <input type="text" id="schoolSearch" style="color:#454754" placeholder="search for a school here">
-    <input type="submit">
+    <input type="text" id="schoolSearch" placeholder="search for a school here">
+    <input id="submitButt" type="submit">
   </form>
 </div>
 </div>
@@ -35,6 +34,11 @@
         <h4></h4>
         <img id="schoolImg">
         <div id="blurb"></div>
+      </div>
+      <br><br>
+      <div class="col s6">
+        <ul id="degrees">
+        </ul>
       </div>
       <br></br>
       <br></br>
@@ -51,7 +55,7 @@
            <div class="footer-copyright">
              <div class="row">
                 <div class="col s12">
-                 © 2014 Copyright Text
+                 © 2017 Copyright Text
                </div>
             </div>
            </div>
@@ -60,100 +64,88 @@
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script>
-
-      function initMap() {
-        document.querySelector("#mainSearch").addEventListener("submit", function(event){
-          event.preventDefault();
-          var searchTerm = document.querySelector("input").value;
-          searchTerm = searchTerm.split(" ");
-
-            for(var i =0; i < searchTerm.length; i++){
-              if(searchTerm[i][0] && searchTerm[i] !== "of" && searchTerm[i] !== "and"){
-                searchTerm[i] =searchTerm[i].substring(0,1).toUpperCase() + searchTerm[i].substring(1);
-              }
-            }
-          searchTerm = searchTerm.join(" ");
-
-          console.log(searchTerm);
-
-          $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
-            var collegeArr = data.result;
-              for(var i = 0; i < collegeArr.length; i++){
-                if(collegeArr[i].name.startsWith(searchTerm)){
-                  var collegeName = (collegeArr[i].name);
-                  var collegeId =  collegeArr[i].unitid;
-                 //console.log(collegeId);
-                 }
-               }
-            // console.log(collegeName + ":" + collegeId)
-             if(collegeName && collegeId){
-                $.get("https://www.nearbycolleges.info/api/locations/" + collegeId, function(data){
-                      var lat = parseFloat(data.result.lat);
-                      var lng = parseFloat(data.result.lng);
-
-                      console.log("Lat: " + lat + " "+ "Lang: " + lng);
-
-                  if(marker){
-                        marker.setMap(null) // clears the marker
-                  }
-
-                    var map = new google.maps.Map(document.querySelector("#map"), {
-                              zoom: 13,
-                              center: {lat: lat, lng: lng}
-                    });
-
-                     var marker = new google.maps.Marker({
-                            zoom: 13,
-                            position:{lat: lat, lng:lng},
-                            map: map
-                          });
-                    console.log("Lat: " + lat + " "+ "Lang: " + lng);
-
-                    });
+     function initMap() {
+       document.querySelector("#mainSearch").addEventListener("submit", function(event){
+         event.preventDefault();
+         var searchTerm = document.querySelector("input").value;
+         if(searchTerm === "NYU" || searchTerm === "nyu"){
+           searchTerm = "New York University";
+         } else{
+         searchTerm = searchTerm.split(" ");
+           for(var i =0; i < searchTerm.length; i++){
+             if(searchTerm[i][0] && searchTerm[i] !== "of" && searchTerm[i] !== "and"){
+               searchTerm[i] =searchTerm[i].substring(0,1).toUpperCase() + searchTerm[i].substring(1);
+             }
+           }
+         searchTerm = searchTerm.join(" ");
+       }
+         console.log(searchTerm);
+         $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
+           var collegeArr = data.result;
+             for(var i = 0; i < collegeArr.length; i++){
+               if(collegeArr[i].name.startsWith(searchTerm)){
+                 var collegeName = (collegeArr[i].name);
+                 var collegeId =  collegeArr[i].unitid;
+                //console.log(collegeId);
                 }
-                if(collegeId === undefined){
-                  searchTerm = searchTerm.toUpperCase();
-                  console.log("uppercased", searchTerm);
-                     $.get("https://www.nearbycolleges.info/api/alias?q="+ searchTerm, function(data){
-                       //console.log("here is alias:", data.result[0].alias, data.result[0].unitid);
-                       var collegeName2 = data.result[0].name;
-                       var collegeId2 = data.result[0].unitid;
-                       console.log(collegeName2 + ":" + collegeId2);
-
-                       if(collegeName2 && collegeId2){
-                         $.get("https://www.nearbycolleges.info/api/locations/" + collegeId2, function(data){
-                           var lat2 = parseFloat(data.result.lat);
-                           var lng2 = parseFloat(data.result.lng);
-
-                           console.log("Lat: " + lat2 + " "+ "Lang: " + lng2);
-
-                       if(marker){
-                             marker.setMap(null) // clears the marker
-                       }
-
-                         var map = new google.maps.Map(document.querySelector("#map"), {
-                                   zoom: 13,
-                                   center: {lat: lat2, lng: lng2}
-                         });
-
-                          var marker = new google.maps.Marker({
-                                 zoom: 13,
-                                 position:{lat: lat2, lng:lng2},
-                                 map: map
-                               });
-
-                         console.log("Lat: " + lat2 + " "+ "Lang: " + lng2);
-
-                         });
-                       }
-                });
               }
-            });
-      });
-    }
-  </script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUOm9Z7AG0rigIDR5FhH9J_OYbfKGO_XM&callback=initMap"></script>
-  <script src=script.js></script>
+           // console.log(collegeName + ":" + collegeId)
+            if(collegeName && collegeId){
+               $.get("https://www.nearbycolleges.info/api/locations/" + collegeId, function(data){
+                     var lat = parseFloat(data.result.lat);
+                     var lng = parseFloat(data.result.lng);
+                     console.log("Lat: " + lat + " "+ "Lang: " + lng);
+                 if(marker){
+                       marker.setMap(null) // clears the marker
+                 }
+                   var map = new google.maps.Map(document.querySelector("#map"), {
+                             zoom: 13,
+                             center: {lat: lat, lng: lng}
+                   });
+                    var marker = new google.maps.Marker({
+                           zoom: 13,
+                           position:{lat: lat, lng:lng},
+                           map: map
+                         });
+                   console.log("Lat: " + lat + " "+ "Lang: " + lng);
+                   });
+               }
+               if(collegeId === undefined){
+                 searchTerm = searchTerm.toUpperCase();
+                 console.log("uppercased", searchTerm);
+                    $.get("https://www.nearbycolleges.info/api/alias?q="+ searchTerm, function(data){
+                      //console.log("here is alias:", data.result[0].alias, data.result[0].unitid);
+                      var collegeName2 = data.result[0].name;
+                      var collegeId2 = data.result[0].unitid;
+                      console.log(collegeName2 + ":" + collegeId2);
+                      if(collegeName2 && collegeId2){
+                        $.get("https://www.nearbycolleges.info/api/locations/" + collegeId2, function(data){
+                          var lat2 = parseFloat(data.result.lat);
+                          var lng2 = parseFloat(data.result.lng);
+                          console.log("Lat: " + lat2 + " "+ "Lang: " + lng2);
+                      if(marker){
+                            marker.setMap(null) // clears the marker
+                      }
+                        var map = new google.maps.Map(document.querySelector("#map"), {
+                                  zoom: 13,
+                                  center: {lat: lat2, lng: lng2}
+                        });
+                         var marker = new google.maps.Marker({
+                                zoom: 13,
+                                position:{lat: lat2, lng:lng2},
+                                map: map
+                              });
+                        console.log("Lat: " + lat2 + " "+ "Lang: " + lng2);
+                        });
+                      }
+               });
+             }
+           });
+     });
+   }
+ </script>
+ <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUOm9Z7AG0rigIDR5FhH9J_OYbfKGO_XM&callback=initMap"></script>
+ <script src=script.js></script>
 </body>
 
 </html>
