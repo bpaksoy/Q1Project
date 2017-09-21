@@ -11,6 +11,14 @@ searchForm.addEventListener("submit", function(event){
   var schoolStats;
   var schoolImg;
 
+  var studyImg = document.createElement("img");
+  studyImg.classList.add("confusedMind");
+  studyImg.setAttribute("src", "img/studyImg.jpg");
+  var rightColumn = document.querySelector("#rightHand");
+  rightColumn.appendChild(studyImg);
+  
+
+
     for(var i =0; i < searchTerm.length; i++){
       if(searchTerm[i][0] && searchTerm[i] !== "of" && searchTerm[i] !== "and"){
         searchTerm[i] =searchTerm[i].substring(0,1).toUpperCase() + searchTerm[i].substring(1);
@@ -67,6 +75,8 @@ searchForm.addEventListener("submit", function(event){
    if(searchTerm2 !== ""){
      list2.innerHTML = "";
    }
+
+
 
    function nameCorrector(str){
      str = str.split(" ");
