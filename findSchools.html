@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Find Schools</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="style2.css">
+  </head>
+  <body background="img/backgroundImg.png">
+    <nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo"><i class="material-icons left">find_in_page</i>Find Schools</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="index.html"><i class="material-icons left">home</i>Home</a></li>
+        <li><a href="badges.html"><i class="material-icons right">view_module</i>About Us</a></li>
+      </ul>
+    </div>
+  </nav>
+  <br>
+   <aside>
+     <img id="logoImg" src="img/logo1.png">
+   </aside>
+   <main>
+   <h4 id="title">Looking for Schools?</h4>
+   <div class="row" id"#mainSearch">
+  <div>
+   <label>State</label>
+    <select id="stateSearch" class="browser-default">
+      <option value="" disabled selected>Choose a State</option>
+      <option value="California">California</option>
+      <option value="Connecticut">Connecticut</option>
+      <option value="Florida">Florida</option>
+      <option value="Massachusetts">Massachusetts</option>
+      <option value="New Jersey">New Jersey</option>
+      <option value="New York">New York</option>
+      <option value="Pennsylvania">Pennsylvania</option>
+      <option value="South Carolina">South Carolina</option>
+      <option value="Texas">Texas</option>
+      <option value="Virginia">Virginia</option>
+      <option value="Washington">Washington</option>
+    </select>
+  </div>
+<div>
+ <label>SAT Score</label>
+ <select id="satSearch" class="browser-default">
+   <option value="" disabled selected>Choose an option</option>
+   <option id="option1" value="400">0 - 400</option>
+   <option id="option2" value="1000">400 - 1000</option>
+   <option id="option3" value="1600">1000 - 1600</option>
+ </select>
+</div>
+<!-- <br> -->
+<div>
+ <label>Choose a Program</label>
+ <select id="programSearch" class="browser-default">
+   <option value="" disabled selected>Select One</option>
+   <option value="business">Business</option>
+   <option value="engineering">Engineering</option>
+   <option value="english">English</option>
+   <option value="education">Education</option>
+   <option value="health">Health</option>
+   <option value="psychology">Psychology</option>
+ </select>
+</div>
+ </div>
+ <br><br>
+ <footer class="page-footer">
+          <div class="row">
+            <div class="col s12" id="footerContent">
+              <h6 class="white-text">HiScholar.com</h6>
+            </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="row">
+             <div class="col s12">
+              © 2017 Copyright Text
+            </div>
+        </div>
+ </footer>
+</main>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+    <script src="script2.js"></script>
+  </body>
+</html>

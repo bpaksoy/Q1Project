@@ -9,42 +9,52 @@
   <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body background="img/backgroundImg.png">
   <nav>
      <div class="nav-wrapper">
-       <a href="#!" class="brand-logo"><i class="material-icons">school</i>HiScholar</a>
+       <a href="#!" class="brand-logo"> <img id="logoImg" src="img/logo1.png"></a>
        <ul class="right hide-on-med-and-down">
-         <li><a href="compare.html"><i class="material-icons left">find_in_page</i>Find Schools</a></li>
+         <li><a href="findSchools.html"><i class="material-icons left">find_in_page</i>Find Schools</a></li>
          <li><a href="badges.html"><i class="material-icons right">view_module</i>About Us</a></li>
        </ul>
      </div>
    </nav>
 <br></br>
+<main>
+<section>
+<br><br>
 <div class="row">
-  <div class="col s6">
-  <form id="mainSearch">
-    <label for="schoolSearch" style="font-size:20px">School Search</label>
-    <input type="text" id="schoolSearch" placeholder="search for a school here">
+  <div class="col s8">
+    <h4>Looking for a School?</h4>
+    <form id="mainSearch">
+    <label for="schoolSearch" style="font-size:20px">Search for a school here</label>
+    <br>
+    <input type="text" id="schoolSearch">
+    <br>
     <input id="submitButt" type="submit">
   </form>
 </div>
 </div>
+</section>
+
     <div class="row">
-      <div id="schoolName" class="col s6">
+      <div id="schoolName" class="col s5">
         <h4></h4>
         <img id="schoolImg">
-        <div id="blurb"></div>
+        <ul id="degrees">
+        <!-- <div id="blurb"></div> -->
       </div>
       <br><br>
       <div class="col s6">
-        <ul id="degrees">
+        <!-- <ul id="degrees"> -->
+        <div id="blurb"></div>
         </ul>
       </div>
-      <br></br>
-      <br></br>
+      </div>
+
       <div id="map" class="col s6">
       </div>
-    </div>
+
 
     <footer class="page-footer">
              <div class="row">
@@ -61,6 +71,7 @@
            </div>
     </footer>
 
+  </main>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   <script>

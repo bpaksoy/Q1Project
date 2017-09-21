@@ -8,6 +8,8 @@ searchForm.addEventListener("submit", function(event){
   var searchTerm2 = document.querySelector("input").value;
   searchTerm2 = searchTerm2.toLowerCase();
   searchTerm2= searchTerm2.split(" ").join("%20");
+  var schoolStats;
+  var schoolImg;
 
     for(var i =0; i < searchTerm.length; i++){
       if(searchTerm[i][0] && searchTerm[i] !== "of" && searchTerm[i] !== "and"){
@@ -48,6 +50,10 @@ searchForm.addEventListener("submit", function(event){
     searchTerm2 = "new%20york%20university";
   }
 
+  if(searchTerm === "USC" || searchTerm === "usc"){
+    searchTerm2 = "university%20of%20southern%20california";
+  }
+
   if(searchTerm === "upenn" || searchTerm === "UPenn" || searchTerm === "UPENN" ){
     searchTerm = "University of Pennsylvania";
     searchTerm2= "university%20of%20pennsylvania";
@@ -57,9 +63,9 @@ searchForm.addEventListener("submit", function(event){
   $.get("https://api.data.gov/ed/collegescorecard/v1/schools/?school.name="+searchTerm2+"&api_key=Xxf2NKtwfcXUd8K2hqawnlur6c0YY93xsNFwq0Dy", function(data){
    //schoolName = data.results[0].school.name;
    var object = data.results[0]["2014"].academics.program.degree
-   var list = document.querySelector("#degrees");
+   var list2 = document.querySelector("#degrees");
    if(searchTerm2 !== ""){
-     list.innerHTML = "";
+     list2.innerHTML = "";
    }
 
    function nameCorrector(str){
@@ -72,8 +78,8 @@ searchForm.addEventListener("submit", function(event){
   }
 
   var programs = document.createElement("h5");
-  programs.textContent = "Programs Offered: ";
-  list.appendChild(programs);
+  programs.textContent = " Programs Offered: ";
+  list2.appendChild(programs);
 
     for(var key in object){
       if(object[key] == 1){
@@ -81,8 +87,9 @@ searchForm.addEventListener("submit", function(event){
         key = key.split("_").join(" ");
         console.log("key:", key);
         var li = document.createElement("li");
-        li.textContent = "* " + nameCorrector(key);
-        list.appendChild(li);
+        li.textContent = " * " + nameCorrector(key);
+        list2.classList.add("awesome");
+        list2.appendChild(li);
     }
   }
 
@@ -91,7 +98,7 @@ searchForm.addEventListener("submit", function(event){
 
 
   //console.log(searchTerm);
-  var schoolStats = document.querySelector("#blurb");
+ schoolStats = document.querySelector("#blurb");
   var collegeName;
   var collegeId;
     if(searchTerm !== ""){
@@ -101,7 +108,6 @@ searchForm.addEventListener("submit", function(event){
 
 
   $.get("https://www.nearbycolleges.info/api/autocomplete?q=&limit=3000", function(data){
-    console.log("alias data script: ", data)
 
     var collegeArr = data.result;
       for(var i = 0; i < collegeArr.length; i++){
@@ -144,9 +150,14 @@ searchForm.addEventListener("submit", function(event){
             list.appendChild(li);
           }
           console.log(list);
+          schoolStats.classList.add("cool");
           schoolStats.appendChild(list);
           var photoImgUrl = data.result.school.img;
-          var schoolImg = document.querySelector("#schoolImg");
+          // if(photoImgUrl === undefined &&schoolName === "New York University"){
+          //   photoImgUrl = img/nyu.jpg;
+          // }
+          schoolImg = document.querySelector("#schoolImg");
+          schoolImg.classList.add("super");
           schoolImg.setAttribute("src", photoImgUrl);
 
           });
@@ -191,10 +202,12 @@ searchForm.addEventListener("submit", function(event){
                    list2.appendChild(li2);
                  }
                  console.log(list2);
+                 schoolStats2.classList.add("cool");
                  schoolStats2.appendChild(list2);
 
                  var photoImgUrl2 = data.result.school.img;
                  var schoolImg2 = document.querySelector("#schoolImg");
+                  schoolImg2.classList.add("super");
                  schoolImg2.setAttribute("src", photoImgUrl2);
 
                });

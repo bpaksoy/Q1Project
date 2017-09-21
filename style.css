@@ -1,18 +1,26 @@
 
 body {
-  height: 80%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  /*height: 80%;*/
   margin-left: 5px;
   margin-right: 5px;
   padding: 0;
-  background-color: #F0F0F2;
+  background-color: #F8F8F8;
 }
+
+main {
+    flex: 1 0 auto;
+  }
+
 
 #mainSearch {
  width: 50%;
 }
 
 #schoolSearch {
-  background-color: #CECECE;
+  background-color: white;
   border-radius: 10px;
   width: 200px;
   height:35px;
@@ -20,16 +28,63 @@ body {
   padding-left: 5px;
 }
 
-/*input::placeholder{
+input::placeholder{
   color:  #454754;
-}*/
+}
+
+#submitButt {
+  border-radius: 6px;
+}
 
 #schoolImg {
    max-width: 80%;
     height: auto;
-    width: auto/9;
-    border-radius: 3px;
+
+    /*width: auto/9;
+    border-radius: 5px;
+    border: solid #454754 2px;*/
     /*border: solid black 2px;*/
+}
+
+.super{
+  max-width: 80%;
+  height: auto;
+  width: 430px;
+  padding: 10px;
+  /*border: 3px solid gray;*/
+  margin: 0;
+  border-radius: 3px;
+  background-color: white;
+  /*box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);*/
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.cool {
+  width: 450px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+    /*width: 50%;
+    padding: 10px;
+    border: 3px solid gray;
+    margin: 0;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);*/
+}
+
+.awesome {
+  max-width: 80%
+
+  padding: 10px;
+  width: 430px;
+  /*border: 3px solid gray;*/
+  /*display: inline-block;*/
+  text-align: center;
+  margin: 0;
+  background-color: white;
+  border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 h4 {
@@ -44,48 +99,35 @@ li {
   width: 90%;
   height: 300px;
   border-radius: 3px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
 
 nav {
-  background-color: #41A7CC;
+  background-color: #ffd100;
 }
 
+#logoImg {
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+  border-radius: 100%;
+}
+
+
 .page-footer {
-  background-color: #41A7CC;
+  background-color: #ffd100;
 }
 .footer-copyright {
   height: 1px;
 }
 
-main {
-  height: 30em;
+/*main {
+  height: 100%;
+}*/
+
+#findSchools {
+    margin-bottom: 1em;
 }
 
-#grid {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-#grid1{
-  border: solid #41A7CC 2px;
-}
-
-#grid2{
-  border: solid #41A7CC 2px;
-}
-
-#grid3{
-  border: solid #41A7CC 2px;
-}
-
-#grid4{
-  border: solid #41A7CC 2px;
-}
-
-#grid5{
-  border: solid #41A7CC 2px;
-}
-
-#grid6{
-  border: solid #41A7CC 2px;
+#findSchools {
+    display: block;
+    margin-top: 0em;
 }
