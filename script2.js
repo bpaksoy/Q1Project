@@ -78,25 +78,29 @@ searchForm.addEventListener("submit", function(event){
   for(var j =0; j < sampleArr.length; j++){
     $.get("https://www.nearbycolleges.info/api/everything/" + sampleArr[j], function(data2){
       console.log(data2);
-      cardArr.push([data2.result.location.name, "Acceptance Rate: %" + data2.result.admission.acceptanceRate, "Number of Applications: " + monetize(data2.result.admission.numberApps), "Full Time Enrollment: " + monetize(data2.result.enrollment.fulltimeTotal), "City: "+ data2.result.location.city, "Tuition: $"+ monetize(data2.result.school.instateTuition),"Calendar System: "+ data2.result.school.calendarSystem]);
       schoolImgUrl= data2.result.school.img
+      cardArr.push([data2.result.location.name, "Acceptance Rate: %" + data2.result.admission.acceptanceRate, "Number of Applications: " + monetize(data2.result.admission.numberApps), "Full Time Enrollment: " + monetize(data2.result.enrollment.fulltimeTotal), "City: "+ data2.result.location.city, "Tuition: $"+ monetize(data2.result.school.instateTuition),"Calendar System: "+ data2.result.school.calendarSystem, data2.result.school.img]);
+
 
       console.log(cardArr);
        //
        //
        var domString = "";
-
-
+      //  var domString2 = "";
+      //  var schoolImg = document.createElement("img");
 
 
 
        for(var m=0; m<cardArr.length; m++){
-         domString = domString+ "<div id='chartDiv' class='col s8 cardHere'><ul><li><strong>"+cardArr[m][0]+"</strong></li><li>"+cardArr[m][1]+"</li><li>"+cardArr[m][2]+"</li><li>"+cardArr[m][3]+"</li><li>"+cardArr[m][4]+"</li><li>"+cardArr[m][5]+"</li></ul></div><br>";
-         console.log("This is it!!!! " +cardArr[m][0]);
+         domString = domString+ "<div id='chartDiv' class='col s8 cardHere'><ul><li><strong>"+cardArr[m][0]+"</strong></li><li>"+cardArr[m][1]+"</li><li>"+cardArr[m][2]+"</li><li>"+cardArr[m][3]+"</li><li>"+cardArr[m][4]+"</li><li>"+cardArr[m][5]+"</li><li>"+cardArr[m][6]+"</li></ul></div><br>";
+        //  domString2+= "<div id='chartImg'>"+ schoolImg.setAttribute("src", schoolImgUrl)+ "</div>";
+         console.log("This is it!!!! " + schoolImgUrl);
        }
 
        var chartDiv = document.querySelector("#chartDiv");
+      //  var charImg = document.querySelector("#chartImg");
        chartDiv.innerHTML = domString;
+      //  chartImg.innerHTML = domString2;
        console.log(domString)
      });
 
